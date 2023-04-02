@@ -9,8 +9,8 @@ export class Town {
 
   constructor(parentWidth, parentHeight) {
     this.name = '';
-    this.width = this.makeRandomLength(parentWidth, Town.SMALLEST_LENGTH, Town.SMALLEST_SPACE);
-    this.height = this.makeRandomLength(parentHeight, Town.SMALLEST_LENGTH, Town.SMALLEST_SPACE);
+    this.width = this.makeRandomLength(parentWidth, Town.SMALLEST_LENGTH);
+    this.height = this.makeRandomLength(parentHeight, Town.SMALLEST_LENGTH);
     this.pointX = this.makeRandomPoint(parentWidth, Town.SMALLEST_SPACE, this.width);
     this.pointY = this.makeRandomPoint(parentHeight, Town.SMALLEST_SPACE, this.height);
     this.children = [];
@@ -39,15 +39,15 @@ export class Town {
   }
 
   makeChildren(smallestLength) {
-    if (this.width / 4 <= smallestLength || this.height / 4 <= smallestLength) {
+    if (this.width / 2 <= smallestLength || this.height / 2 <= smallestLength) {
       return;
     }
     this.children = makeVillage(this.width, this.height);
   }
 
-  makeRandomLength(parentLength, smallestLength, smallestSpace) {
+  makeRandomLength(parentLength, smallestLength) {
     const maxLength = parentLength / 2;
-    const minLength = smallestLength - smallestSpace;
+    const minLength = smallestLength;
 
     return makeRandomNumber(minLength, maxLength);
   }
