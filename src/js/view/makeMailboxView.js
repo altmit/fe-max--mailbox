@@ -3,10 +3,10 @@ import { domAPI } from '../utils/domAPI.js';
 export const makeMailboxView = async (mailboxTownNodes, unSortedTownInfo, sortedTownInfo) => {
   makeInfoView(unSortedTownInfo, sortedTownInfo);
   await waitSeconds(2);
-  mailboxTownNodes.forEach(changeBorderColor);
+  mailboxTownNodes.forEach(addMailboxTownClass);
 };
 
-const changeBorderColor = (town) => (town.style.border = '3px solid red');
+const addMailboxTownClass = (town) => town.classList.add('mailboxTown');
 
 const waitSeconds = (seconds) => {
   return new Promise((resolve, reject) => {

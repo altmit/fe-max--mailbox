@@ -2,7 +2,7 @@ import { domAPI } from '../utils/domAPI.js';
 import { mergeSortMailboxTown } from '../utils/mergeSortMailboxTown.js';
 import { makeMailboxView } from '../view/makeMailboxView.js';
 
-export const buttonClickEvent = () => {
+export const addMailboxBtnEventListener = () => {
   const buttonNode = domAPI.querySelector('.mailbox-search-button');
   buttonNode.addEventListener('click', searchMailboxTown);
 };

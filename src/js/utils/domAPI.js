@@ -1,4 +1,4 @@
-export const domAPI = {
+export const domAPI = Object.freeze({
   htmlNode: document.firstElementChild,
 
   querySelector(selector, parentNode = this.htmlNode) {
@@ -18,12 +18,8 @@ export const domAPI = {
   },
 
   getElementByclassName(className, parentNode = this.htmlNode) {
-    for (const node of this.traverse(parentNode)) {
-      if (node.classList.contains(className)) {
-        return node;
-      }
-    }
-    return null;
+    const containClassName = (node) => node.classList.contains(className);
+    return this.traverse(parentNode).find(containClassName) || null;
   },
 
   getElementByTagName(tagName, parentNode = this.htmlNode) {
@@ -44,9 +40,7 @@ export const domAPI = {
     return searchNodes;
   },
 
-  getElementById(idName, parentNode) {},
-
-  traverse(parentNode = this.htmlNode, isMatchingNode) {
+  traverse(parentNode, isMatchingNode) {
     const nodeList = [];
 
     if (!parentNode) {
@@ -67,4 +61,4 @@ export const domAPI = {
 
     return nodeList.filter(isMatchingNode);
   },
-};
+});

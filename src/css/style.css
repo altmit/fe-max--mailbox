@@ -46,6 +46,10 @@ main {
   left: 3px;
 }
 
+.mailboxTown {
+  border: 3px solid red;
+}
+
 p {
   font-size: 45px;
 }
