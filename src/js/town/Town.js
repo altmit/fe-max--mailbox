@@ -4,15 +4,15 @@ import { makeVillage } from './makeVillage.js';
 export class Town {
   static nameASCII = 65;
   static mailboxSizeStorage = new Map();
+  static SMALLEST_LENGTH = 50;
+  static SMALLEST_SPACE = 10;
 
   constructor(parentWidth, parentHeight) {
-    this.SMALLEST_LENGTH = 100;
-    this.SMALLEST_SPACE = 10;
     this.name = '';
-    this.width = this.makeRandomLength(parentWidth, this.SMALLEST_LENGTH);
-    this.height = this.makeRandomLength(parentHeight, this.SMALLEST_LENGTH);
-    this.pointX = this.makeRandomPoint(parentWidth, this.width);
-    this.pointY = this.makeRandomPoint(parentHeight, this.height);
+    this.width = this.makeRandomLength(parentWidth, Town.SMALLEST_LENGTH, Town.SMALLEST_SPACE);
+    this.height = this.makeRandomLength(parentHeight, Town.SMALLEST_LENGTH, Town.SMALLEST_SPACE);
+    this.pointX = this.makeRandomPoint(parentWidth, Town.SMALLEST_SPACE, this.width);
+    this.pointY = this.makeRandomPoint(parentHeight, Town.SMALLEST_SPACE, this.height);
     this.children = [];
     this.hasMailbox = Math.random() < 0.4;
     this.mailboxSize = 0;
@@ -20,7 +20,7 @@ export class Town {
 
   setTown() {
     this.name = String.fromCharCode(Town.nameASCII++);
-    this.makeChildren();
+    this.makeChildren(Town.SMALLEST_LENGTH);
     this.setMailboxSize();
   }
 
@@ -38,23 +38,23 @@ export class Town {
     this.mailboxSize = randomSize;
   }
 
-  makeChildren() {
-    if (this.width <= this.SMALLEST_LENGTH || this.height <= this.SMALLEST_LENGTH) {
+  makeChildren(smallestLength) {
+    if (this.width / 4 <= smallestLength || this.height / 4 <= smallestLength) {
       return;
     }
     this.children = makeVillage(this.width, this.height);
   }
 
-  makeRandomLength(parentLength, smallestLength) {
-    const maxLength = parentLength / 2 - smallestLength;
-    const minLength = smallestLength - this.SMALLEST_SPACE;
+  makeRandomLength(parentLength, smallestLength, smallestSpace) {
+    const maxLength = parentLength / 2;
+    const minLength = smallestLength - smallestSpace;
 
     return makeRandomNumber(minLength, maxLength);
   }
 
-  makeRandomPoint(parentLength, distance) {
-    const maxPoint = parentLength - this.SMALLEST_SPACE * 2 - distance;
-    const minPoint = this.SMALLEST_SPACE;
+  makeRandomPoint(parentLength, smallestSpace, distance) {
+    const maxPoint = parentLength - smallestSpace * 2 - distance;
+    const minPoint = smallestSpace;
 
     return makeRandomNumber(minPoint, maxPoint);
   }
