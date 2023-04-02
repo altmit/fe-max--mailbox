@@ -29,16 +29,12 @@ const isOverlapWithPreTowns = (towns, town) => {
 };
 
 const isOverlap = (prevTown, currentTown) => {
-  if (
+  return !(
     isLocatedLeft(prevTown, currentTown) ||
     isLocatedRight(prevTown, currentTown) ||
     isLocatedTop(prevTown, currentTown) ||
     isLocatedBottom(prevTown, currentTown)
-  ) {
-    return false;
-  }
-
-  return true;
+  );
 };
 
 const isLocatedLeft = (prevTown, currentTown) => {
